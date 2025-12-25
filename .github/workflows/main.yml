@@ -21,6 +21,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ARN_TEST }}
           aws-region: ${{ secrets.AWS_REGION }}
+          audience: sts.amazonaws.com
 
       - name: Install SAM CLI
         run: |
