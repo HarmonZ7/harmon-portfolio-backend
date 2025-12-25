@@ -1,0 +1,67 @@
+name: SAM CI/CD Deploy
+
+on:
+  push:
+    branches:
+      - main  # deploy test automatically
+  workflow_dispatch:  # allows manual triggers for prod
+
+jobs:
+  deploy-test:
+    name: Deploy to Test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # only for main branch
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ARN_TEST }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install SAM CLI
+        run: |
+          pip install --upgrade pip
+          pip install aws-sam-cli
+
+      - name: Validate template
+        run: sam validate
+
+      - name: Build SAM app
+        run: sam build
+
+      - name: Deploy SAM app to Test
+        run: sam deploy --stack-name visitor-counter-test --no-confirm-changeset
+
+  deploy-prod:
+    name: Deploy to Prod
+    runs-on: ubuntu-latest
+    needs: deploy-test
+    if: github.event_name == 'workflow_dispatch'  # manual trigger only
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ARN_PROD }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install SAM CLI
+        run: |
+          pip install --upgrade pip
+          pip install aws-sam-cli
+
+      - name: Validate template
+        run: sam validate
+
+      - name: Build SAM app
+        run: sam build
+
+      - name: Deploy SAM app to Prod
+        run: sam deploy --stack-name visitor-counter-prod --no-confirm-changeset
