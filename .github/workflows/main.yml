@@ -30,6 +30,7 @@ jobs:
       - name: Install SAM CLI
         run: |
           pip install --upgrade pip
+          pip install -r ~/visitor_counter/requirements.txt
           pip install aws-sam-cli
 
       - name: Validate template
