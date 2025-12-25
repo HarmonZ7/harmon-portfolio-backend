@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  harmon-cloud-resume-backend
+
+  Sample SAM Template for harmon-cloud-resume-backend
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'GET'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
+Resources:
+  VisitorTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: VisitorCounter
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  VisitorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: VisitorCounterFunction
+      Runtime: python3.13
+      Handler: app.lambda_handler
+      CodeUri: visitor_counter/
+      MemorySize: 128
+      Timeout: 5
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref VisitorTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref VisitorTable
+      Events:
+        VisitorApi:
+          Type: Api
+          Properties:
+            Path: /count
+            Method: GET
+
+Outputs:
+  VisitorApiUrl:
+    Description: API Gateway endpoint URL for visitor counter
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/count"
