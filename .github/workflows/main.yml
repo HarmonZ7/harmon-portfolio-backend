@@ -37,7 +37,7 @@ jobs:
         run: sam validate
 
       - name: Build SAM app
-        run: sam build
+        run: sam build --use-container
 
       - name: Deploy SAM app to Test
         run: sam deploy --stack-name visitor-counter-test --no-confirm-changeset
