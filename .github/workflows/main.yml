@@ -6,6 +6,10 @@ on:
       - main  # deploy test automatically
   workflow_dispatch:  # allows manual triggers for prod
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy-test:
     name: Deploy to Test
