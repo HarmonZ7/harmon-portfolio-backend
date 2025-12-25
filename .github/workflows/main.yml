@@ -1,4 +1,4 @@
-1name: SAM CI/CD Deploy
+name: SAM CI/CD Deploy
 
 on:
   push:
