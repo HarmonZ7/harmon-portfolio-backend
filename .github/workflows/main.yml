@@ -1,4 +1,4 @@
-name: SAM CI/CD Deploy
+1name: SAM CI/CD Deploy
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_ARN_TEST }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
 
       - name: Install SAM CLI
         run: |
