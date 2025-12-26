@@ -3,7 +3,7 @@
 version = 0.1
 
 [default.global.parameters]
-stack_name = "harmon-cloud-resume-backend"
+stack_name = "visitor-counter-test"
 region = "us-east-1"
 
 [default.build.parameters]
@@ -20,7 +20,7 @@ resolve_s3 = true
 stack_name = "visitor-counter-test"
 s3_prefix = "visitor-counter-test"
 region = "us-east-1"
-profile = "test"
+profile = ""
 image_repositories = []
 
 [default.package.parameters]
