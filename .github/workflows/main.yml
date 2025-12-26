@@ -38,17 +38,10 @@ jobs:
       - name: Test AWS Credentials
         run: aws sts get-caller-identity
 
-      - name: Clear SAM config
-        run: rm -rf ~/.aws-sam/config
-
       - name: Build SAM app
         run: sam build --use-container
 
       - name: Deploy SAM app to Test
-        env:
-          SAM_PROFILE: ''
-          AWS_PROFILE: ''
-          SAM_CONFIG_DIR: /tmp/samconfig
         run: |
           sam deploy \
             --stack-name visitor-counter-test \
