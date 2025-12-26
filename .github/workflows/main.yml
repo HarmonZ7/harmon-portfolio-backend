@@ -43,8 +43,6 @@ jobs:
         run: sam build --use-container
 
       - name: Deploy SAM app to Test
-        env:
-          SAM_CONFIG_DIR: /tmp/samconfig
         run: |
           sam deploy \
             --stack-name visitor-counter-test \
