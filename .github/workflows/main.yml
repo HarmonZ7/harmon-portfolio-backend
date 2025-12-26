@@ -47,7 +47,8 @@ jobs:
           sam deploy \
           --stack-name visitor-counter-test \
           --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
-          --no-confirm-changeset
+          --no-confirm-changeset \
+          --profile default
           
 
   deploy-prod:
