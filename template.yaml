@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   harmon-cloud-resume-backend
 
-  Sample SAM Template for harmon-cloud-resume-backend
+  SAM Template for harmon-cloud-resume-backend
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
