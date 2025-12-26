@@ -27,10 +27,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           audience: sts.amazonaws.com
 
-      - name: Install SAM CLI
-        run: |
-          pip install --upgrade pip
-          pip install aws-sam-cli
+      - name: Install AWS SAM CLI
+        uses: aws-actions/setup-sam@v2
 
       - name: Validate template
         run: sam validate
