@@ -46,9 +46,7 @@ jobs:
           sam deploy \
             --stack-name visitor-counter-test \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
-            --no-confirm-changeset \
-            --resolve-s3
-          
+            --no-confirm-changeset
 
   deploy-prod:
     name: Deploy to Prod
