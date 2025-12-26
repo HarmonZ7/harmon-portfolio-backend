@@ -20,7 +20,6 @@ resolve_s3 = true
 stack_name = "visitor-counter-test"
 s3_prefix = "visitor-counter-test"
 region = "us-east-1"
-profile = ""
 image_repositories = []
 
 [default.package.parameters]
