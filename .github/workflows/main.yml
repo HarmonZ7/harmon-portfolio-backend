@@ -43,12 +43,11 @@ jobs:
         run: sam build --use-container
 
       - name: Deploy SAM app to Test
-        run: |
-          unset SAM_PROFILE
-          sam deploy \
-          --stack-name visitor-counter-test \
-          --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
-          --no-confirm-changeset
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: visitor-counter-test
+          template: template.yaml
+          no-fail-on-empty-changeset: "1"
           
 
   deploy-prod:
