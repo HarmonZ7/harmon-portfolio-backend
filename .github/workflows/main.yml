@@ -43,8 +43,9 @@ jobs:
         run: sam build --use-container
 
       - name: Deploy SAM app to Test
+        env:
+          SAM_PROFILE: ''
         run: |
-          unset SAM_PROFILE
           sam deploy \
             --stack-name visitor-counter-test \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
