@@ -47,7 +47,7 @@ jobs:
             --stack-name visitor-counter-test \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
             --no-confirm-changeset \
-            --resolve-s3
+            --s3-bucket sam-backend-assets
 
   deploy-prod:
     name: Deploy to Prod
