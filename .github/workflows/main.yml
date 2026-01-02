@@ -1,9 +1,9 @@
 name: SAM CI/CD Deploy
 
 on:
-  #push:
-    #branches:
-      #- main  # deploy test automatically
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
