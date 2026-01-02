@@ -24,6 +24,7 @@ def lambda_handler(event, context):
         return {
             "statusCode": 200,
             "headers": {
+                "Access-Control-Allow-Origin": "https://zacaryharmon.com",
                 "Content-Type": "application/json"
             },
             "body": json.dumps({
@@ -35,6 +36,7 @@ def lambda_handler(event, context):
         return {
             "statusCode": 500,
             "headers": {
+                "Access-Control-Allow-Origin": "https://zacaryharmon.com",
                 "Content-Type": "application/json"
             },
             "body": json.dumps({
