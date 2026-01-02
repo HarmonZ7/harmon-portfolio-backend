@@ -34,6 +34,7 @@ Resources:
       Handler: app.lambda_handler
       CodeUri: visitor_counter/
       MemorySize: 128
+      Description: "Redeploying lambda- touched 1/01/26"
       Timeout: 5
       Policies:
         - DynamoDBCrudPolicy:
