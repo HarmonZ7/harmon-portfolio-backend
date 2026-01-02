@@ -1,11 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  harmon-cloud-resume-backend
+  harmon-portfolio-backend
 
-  SAM Template for harmon-cloud-resume-backend
+  SAM Template for harmon-portfolio-backend
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Api:
     Cors:
@@ -30,12 +29,11 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: VisitorCounterFunction
-      Role: arn:aws:iam::710922701569:role/visitor-counter-test-lambda-role
+      Role: arn:aws:iam::475029595046:role/harmon-portfolio-basic-lambda-role
       Runtime: python3.13
       Handler: app.lambda_handler
       CodeUri: visitor_counter/
       MemorySize: 128
-      Description: "Redeploying lambda- touched 1/01/26"
       Timeout: 5
       Policies:
         - DynamoDBCrudPolicy:
