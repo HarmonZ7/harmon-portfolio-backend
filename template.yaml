@@ -30,6 +30,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: VisitorCounterFunction
+      Role: arn:aws:iam::710922701569:role/visitor-counter-test-lambda-role
       Runtime: python3.13
       Handler: app.lambda_handler
       CodeUri: visitor_counter/
