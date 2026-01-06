@@ -41,10 +41,10 @@ jobs:
       - name: Build SAM app
         run: sam build --use-container
 
-      - name: Deploy SAM app to Test
+      - name: Deploy SAM app to Production
         run: |
           sam deploy \
-            --stack-name visitor-counter-test \
+            --stack-name visitor-counter-prod \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
             --no-confirm-changeset \
             --s3-bucket harmon-portfolio-backend-assets
