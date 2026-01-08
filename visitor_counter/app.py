@@ -14,6 +14,11 @@ from botocore.exceptions import ClientError
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ["TABLE_NAME"])
 
+ALLOWED_ORIGINS = {
+    "https://www.zacaryharmon.com",
+    "https://zacaryharmon.com"
+}
+
 def lambda_handler(event, context):
     """
     Provides backend API functionality for my portfolio web application.
@@ -22,7 +27,7 @@ def lambda_handler(event, context):
     This final number from DynamoDB is then returned to the web application for display.
 
     Args:
-        event(dict): AWS API Gateway package containing request metadata. This function does not rely on this parameter, the function invocation itself counts as a visit.
+        event(dict): AWS API Gateway package containing request metadata. This is used to authenticate the JSON headers for origin access control.
         context: Runtime information provided by AWS Lambda. Not utilized by this function.
         
     Returns:
@@ -32,6 +37,15 @@ def lambda_handler(event, context):
     Raises:
         ClientError: Raised if there are any errors that occur during the course of the function.
     """
+    origin = event.get("headers", {}).get("origin") or event.get("headers", {}).get("Origin")
+    
+    headers = {
+        "Content-Type": "application/json" 
+    }
+
+    if origin in ALLOWED_ORIGINS:
+        headers["Access-Control-Allow-Origin"] = origin
+
     try:
         response = table.update_item(
             Key={
@@ -48,10 +62,7 @@ def lambda_handler(event, context):
 
         return {
             "statusCode": 200,
-            "headers": {
-                "Access-Control-Allow-Origin": {"https://zacaryharmon.com", "https://www.zacaryharmon.com"},
-                "Content-Type": "application/json"
-            },
+            "headers": headers,
             "body": json.dumps({
                 "count": count
             })}
@@ -60,10 +71,7 @@ def lambda_handler(event, context):
 
         return {
             "statusCode": 500,
-            "headers": {
-                "Access-Control-Allow-Origin": {"https://zacaryharmon.com", "https://www.zacaryharmon.com"},
-                "Content-Type": "application/json"
-            },
+            "headers": headers,
             "body": json.dumps({
                 "message": "Failed to update counter"
             })}
