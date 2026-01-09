@@ -1,0 +1,27 @@
+version = 0.1
+
+[dev.deploy.parameters]
+stack_name = "cloud-resume-dev"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+s3-bucket = harmon-portfolio-backend-assets-dev
+confirm_changeset = false
+fail_on_empty_changeset = false
+parameter_overrides = [
+  "Environment=dev",
+  "LogLevel=DEBUG",
+  "UserPoolId=us-east-1_DEVPOOL"
+]
+
+[prod.deploy.parameters]
+stack_name = "cloud-resume-prod"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+s3-bucket = harmon-portfolio-backend-assets
+confirm_changeset = true
+fail_on_empty_changeset = false
+parameter_overrides = [
+  "Environment=prod",
+  "LogLevel=INFO",
+  "UserPoolId=us-east-1_PRODPOOL"
+]

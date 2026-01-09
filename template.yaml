@@ -12,11 +12,19 @@ Globals:
       AllowHeaders: "'*'"
       AllowOrigin: "'*'"
 
+Parameters:
+  Environment:
+    Type: String
+    AllowedValues:
+      - dev
+      - prod
+    Default: dev
+
 Resources:
   VisitorTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: VisitorCounter
+      TableName: !Sub VisitorTable-${Environment}
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
         - AttributeName: id
@@ -28,7 +36,7 @@ Resources:
   VisitorFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: VisitorCounterFunction
+      FunctionName: !Sub VisitorCounterFunction-${Environment}
       Role: arn:aws:iam::475029595046:role/harmon-portfolio-basic-lambda-role
       Runtime: python3.13
       Handler: app.lambda_handler
