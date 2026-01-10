@@ -16,7 +16,8 @@ table = dynamodb.Table(os.environ["TABLE_NAME"])
 
 ALLOWED_ORIGINS = {
     "https://www.zacaryharmon.com",
-    "https://zacaryharmon.com"
+    "https://zacaryharmon.com",
+    "https://dev.zacaryharmon.com"
 }
 
 def lambda_handler(event, context):
